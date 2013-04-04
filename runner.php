@@ -51,7 +51,7 @@ class TestRunner {
       foreach($this->cacheMethods as $i => $method) {
         echo "  METHOD: " . $method->name;
         $time = $case->run($method->cacheService, $seed);
-        echo "  TIME: " . number_format($time, 3) . "\n";
+        echo "  TIME: " . number_format($time*1000, 1) . "ms\n";
       }
     }
   }
