@@ -5,10 +5,10 @@ class TestCase {
   public $name;
   public $callable;
 
-  public function run($cache) {
+  public function run($cache, $seed) {
     $f = $this->callable;
     $start = microtime(true);
-    $f($cache);
+    $f($cache, $seed);
     $end = microtime(true);
     return $end - $start;
   }
@@ -45,13 +45,13 @@ class TestRunner {
     }
   }
 
-  public function run() {
-    foreach($this->cacheMethods as $i => $method) {
-      echo "METHOD: " . $method->name . "\n";
-      foreach($this->testCases as $j => $case) {
-        echo "  CASE: " . $case->name . "\n";
-        $time = $case->run($method->cacheService);
-        echo "  TIME: " . $time . "\n";
+  public function run($seed) {
+    foreach($this->testCases as $j => $case) {
+      echo "CASE: " . $case->name . "\n";
+      foreach($this->cacheMethods as $i => $method) {
+        echo "  METHOD: " . $method->name;
+        $time = $case->run($method->cacheService, $seed);
+        echo "  TIME: " . number_format($time, 3) . "\n";
       }
     }
   }
