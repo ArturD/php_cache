@@ -1,0 +1,12 @@
+tests.php on my VPS.
+
+METHOD: Apc
+  CASE: 1000 small get/set
+  TIME: 0.0016160011291504
+  CASE: 5 1MB get/set
+  TIME: 0.033663034439087
+METHOD: Memcache
+  CASE: 1000 small get/set
+  TIME: 0.055553913116455
+  CASE: 5 1MB get/set
+  TIME: 0.051737070083618
