@@ -1,12 +1,17 @@
+APC uses IPC shared memory mechanism for cacheing. Default cache size is 32MB and it can be configured by apc.shm_size property in php.ini. Most posix system have shared memory segment limit set to 32MB this can be changed using /proc/sys/kernel/shmmax. 
+
 tests.php on my VPS.
 
-METHOD: Apc
-  CASE: 1000 small get/set
-  TIME: 0.0016160011291504
-  CASE: 5 1MB get/set
-  TIME: 0.033663034439087
-METHOD: Memcache
-  CASE: 1000 small get/set
-  TIME: 0.055553913116455
-  CASE: 5 1MB get/set
-  TIME: 0.051737070083618
+CASE: 1000 small get/set
+  METHOD: Apc  TIME: 0.003
+  METHOD: Memcache  TIME: 0.062
+  METHOD: Array  TIME: 0.001
+CASE: 5 1MB get/set
+  METHOD: Apc  TIME: 0.014
+  METHOD: Memcache  TIME: 0.054
+  METHOD: Array  TIME: 0.003
+CASE: 1 set/1000 gets
+  METHOD: Apc  TIME: 0.001
+  METHOD: Memcache  TIME: 0.038
+  METHOD: Array  TIME: 0.000
+

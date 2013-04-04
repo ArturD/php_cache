@@ -28,3 +28,13 @@ class MemcacheCache implements ICache {
   }
 }
 
+class ArrayCache implements ICache {
+  private $array = array();
+  function get($key) {
+    return $this->array[(string)$key];
+  }
+  function set($key, $val) {
+    $this->array[(string)$key] = $val;
+    return true;
+  }
+}

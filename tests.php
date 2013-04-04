@@ -2,6 +2,12 @@
 require_once("./runner.php");
 header("Content-type:text/plain");
 
+// create 1 MB string
+$str = "";
+for($i = 0; $i < 1000000; $i++) {
+  $str .= "a";
+}
+
 $runner = new TestRunner();
 
 // register cache services
@@ -12,6 +18,9 @@ $runner->registerCache("Memcache", function() {
     $mc = new Memcache();
     $mc->connect("localhost");
     return new MemcacheCache($mc);
+  });
+$runner->registerCache("Array", function() {
+    return new ArrayCache();
   });
 
 // register test cases
@@ -24,10 +33,6 @@ $runner->registerTestCase("1000 small get/set", function($cache, $seed) {
     if($r != $i) throw new Exception("expected: " . $i . " was" . $r);
   }
 });
-$str = "";
-for($i = 0; $i < 1000000; $i++) {
-  $str .= "a";
-}
 $runner->registerTestCase("5 1MB get/set", function($cache, $seed) use ($str) {
   for($i = 1; $i<=5; $i++) {
     $cache->set($i . $seed, $str);
