@@ -1,5 +1,6 @@
 <?php
 require_once("./runner.php");
+header("Content-type:text/plain");
 
 $runner = new TestRunner();
 
@@ -23,6 +24,19 @@ $runner->registerTestCase("1000 small get/set", function($cache) {
     if($r != $i) throw new Exception("expected: " . $i . " was" . $r);
   }
 });
+$str = "";
+for($i = 0; $i < 1000000; $i++) {
+  $str .= "a";
+}
+$runner->registerTestCase("5 1MB get/set", function($cache) use ($str) {
+  for($i = 1; $i<=5; $i++) {
+    $cache->set($i, $str);
+  }
+  for($i = 1; $i<=5; $i++) {
+    $r = $cache->get($i);
+    if($r != $str) throw new Exception("expected: " . $i . " was" . $r);
+  }
+});
 /*
 try {
   $runner->warmup();
@@ -30,4 +44,8 @@ try {
   echo "warmup error:" . $e;
 }
 */
-$runner->run();
+try {
+  $runner->run();
+} catch (Exception $e) {
+  echo "testrun error:" . $e;
+}

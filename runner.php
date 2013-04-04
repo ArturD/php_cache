@@ -20,8 +20,8 @@ class CacheMethod {
 }
 
 class TestRunner {
-  private $cacheMethods = [];
-  private $testCases = [];
+  private $cacheMethods = array();
+  private $testCases = array();
 
   public function registerCache($name, $factoryMethod) {
     $method = new CacheMethod();
@@ -47,11 +47,11 @@ class TestRunner {
 
   public function run() {
     foreach($this->cacheMethods as $i => $method) {
-      echo "METHOD: " . $method->name;
+      echo "METHOD: " . $method->name . "\n";
       foreach($this->testCases as $j => $case) {
-        echo "  CASE: " . $case->name;
+        echo "  CASE: " . $case->name . "\n";
         $time = $case->run($method->cacheService);
-        echo "  TIME: " . $time;
+        echo "  TIME: " . $time . "\n";
       }
     }
   }
