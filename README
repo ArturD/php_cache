@@ -6,16 +6,34 @@ ArrayCache     - implementation using basic php array. Just for reference.
 
 tests.php on my VPS.
 
+APC
+=============================
 CASE: 1000 small get/set
-  METHOD: Apc  TIME: 0.003
-  METHOD: Memcache  TIME: 0.062
-  METHOD: Array  TIME: 0.001
+  METHOD: Apc  TIME: 2.4ms
+  METHOD: Memcache  TIME: 127.6ms
+  METHOD: Array  TIME: 3.2ms
 CASE: 5 1MB get/set
-  METHOD: Apc  TIME: 0.014
-  METHOD: Memcache  TIME: 0.054
-  METHOD: Array  TIME: 0.003
+  METHOD: Apc  TIME: 19.1ms
+  METHOD: Memcache  TIME: 68.7ms
+  METHOD: Array  TIME: 3.9ms
 CASE: 1 set/1000 gets
-  METHOD: Apc  TIME: 0.001
-  METHOD: Memcache  TIME: 0.038
-  METHOD: Array  TIME: 0.000
+  METHOD: Apc  TIME: 0.7ms
+  METHOD: Memcache  TIME: 42.2ms
+  METHOD: Array  TIME: 0.4ms
+
+XCache mmap
+==============================
+CASE: 1000 small get/set
+  METHOD: Memcache  TIME: 51.5ms
+  METHOD: Array  TIME: 1.2ms
+  METHOD: XCache  TIME: 4.9ms
+CASE: 5 1MB get/set
+  METHOD: Memcache  TIME: 48.5ms
+  METHOD: Array  TIME: 3.0ms
+  METHOD: XCache  TIME: 13.5ms
+CASE: 1 set/1000 gets
+  METHOD: Memcache  TIME: 24.9ms
+  METHOD: Array  TIME: 0.4ms
+  METHOD: XCache  TIME: 1.8ms
+
 

@@ -11,9 +11,11 @@ for($i = 0; $i < 1000000; $i++) {
 $runner = new TestRunner();
 
 // register cache services
-$runner->registerCache("Apc", function() {
-    return new ApcCache();
-  });
+if( function_exists("apc_store") ) {
+  $runner->registerCache("Apc", function() {
+      return new ApcCache();
+    });
+}
 $runner->registerCache("Memcache", function() {
     $mc = new Memcache();
     $mc->connect("localhost");
@@ -22,7 +24,11 @@ $runner->registerCache("Memcache", function() {
 $runner->registerCache("Array", function() {
     return new ArrayCache();
   });
-
+if( function_exists("xcache_set") ) {
+  $runner->registerCache("XCache", function() {
+      return new XCacheCache();
+    });
+}
 // register test cases
 $runner->registerTestCase("1000 small get/set", function($cache, $seed) {
   for($i = 1; $i<=1000; $i++) {

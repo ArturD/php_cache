@@ -38,3 +38,13 @@ class ArrayCache implements ICache {
     return true;
   }
 }
+
+class XCacheCache implements ICache {
+  function get($key) {
+    return xcache_get((string)$key);
+  }
+  function set($key, $val) {
+    return xcache_set((string)$key, $val);
+  }
+}
+
